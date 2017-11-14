@@ -1,0 +1,16 @@
+devel/git-lite
+editors/nano
+editors/vim-lite
+lang/python
+sysutils/beadm
+sysutils/bhyve-firmware
+sysutils/screen
+sysutils/tmux
+devel/py-pip
+www/nginx
+www/novnc
+www/novnc-websockify
+www/py-flask
+www/py-flask-restful
+www/py-gunicorn
+www/py-requests

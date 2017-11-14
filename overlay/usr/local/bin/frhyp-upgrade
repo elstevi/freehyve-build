@@ -1,0 +1,9 @@
+#!/bin/sh
+set -e
+
+VERS=$1
+URL=$2
+
+fetch -o - ${URL} | gzcat | zfs receive tank/root/${VERS}
+beadm activate ${VERS}
+reboot

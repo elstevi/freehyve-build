@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# PROVIDE:  bweb
+
+. /etc/rc.subr
+
+name="bweb" 
+rcvar=${name}_enable
+command="/usr/local/bin/gunicorn"
+command_args="--env HOSTS=${vm_hosts} --bind 127.0.0.1:8000 bweb.web:app >> /var/log/bweb-info.log 2>> /var/log/bweb-err.log &"
+pidfile="/var/run/${name}.pid"
+
+load_rc_config $name
+run_rc_command "$@" 
+

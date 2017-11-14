@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# PROVIDE:  firstboot
+# REQUIRE:  FILESYSTEMS
+. /etc/rc.subr
+
+name="firstboot" 
+rcvar=${name}_enable
+start_cmd="firstboot_start"
+
+firstboot_start() {
+	/usr/local/bin/frhyp-grow || true
+	/usr/sbin/sysrc -f /usr/local/etc/rc.conf firstboot_enable="NO"
+}
+
+load_rc_config $name
+run_rc_command "$@" 

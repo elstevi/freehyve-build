@@ -1,0 +1,12 @@
+#!/bin/sh
+POOL="tank"
+DISKS=`zpool status | grep ONLINE | grep -v 'state' | grep -v tank | awk '{print $1}'`
+for DISK in $DISKS; do
+	PARTITION=`echo $DISK | cut -d p -f2`
+	if [ "$PARTITION" != "" ]; then
+		DISK_SPLIT=`echo $DISK | cut -d p -f1`
+		gpart recover /dev/${DISK_SPLIT}
+		gpart resize -i ${PARTITION} /dev/${DISK_SPLIT}
+	fi
+	zpool online -e ${POOL} /dev/${DISK}
+done

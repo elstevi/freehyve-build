@@ -1,0 +1,9 @@
+#!/bin/sh
+
+PROJECTS="bapi bapiclient bweb bcli libbhyve frhyp-build"
+mkdir -p /root/src
+for PROJECT in $PROJECTS; do
+	git clone git@github.com:/elstevi/${PROJECT} /root/src/${PROJECT}
+	echo "/root/src/${PROJECT}/${PROJECT}                     /usr/local/lib/python2.7/site-packages/${PROJECT}             nullfs  rw      0 0" >> /etc/fstab
+	mount /usr/local/lib/python2.7/site-packages/${PROJECT}
+done

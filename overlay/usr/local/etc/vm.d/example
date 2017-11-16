@@ -5,7 +5,7 @@
   "disk": [
     {
       "driver": "ahci-hd",
-      "path": "/dev/zvol/tank/vms/example/disk"
+      "path": "/dev/zvol/tank/persist/vms/example/disk"
     }
   ],
   "fbuf_ip": "127.0.0.1",

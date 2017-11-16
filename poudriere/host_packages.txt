@@ -2,10 +2,12 @@ devel/git-lite
 editors/nano
 editors/vim-lite
 lang/python
+ports-mgmt/pkg
 sysutils/beadm
 sysutils/bhyve-firmware
 sysutils/screen
 sysutils/tmux
+textproc/jq
 devel/py-pip
 www/nginx
 www/novnc

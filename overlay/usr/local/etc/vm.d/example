@@ -13,7 +13,7 @@
   "fbuf_wait": false,
   "iso": "/root/iso/FreeBSD-11.1-RELEASE-amd64-bootonly.iso", 
   "memory": "1024",
-  "name": "freebsd",
+  "name": "example",
   "ncpus": "1",
   "network": [
     {

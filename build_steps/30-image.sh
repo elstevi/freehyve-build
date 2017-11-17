@@ -61,7 +61,7 @@ echo "frhyp: {
         mirror_type: \"none\",
         enabled: yes
 }" > ${DESTDIR}/etc/pkg/frhyp.conf
-
+mv ${DESTDIR}/etc/pkg/FreeBSD.conf ${DESTDIR}/tmp/FreeBSD.conf
 
 mkdir -p "${DESTDIR}/${ARTIFACT_DIR}"
 mount -t nullfs ${ARTIFACT_DIR} ${DESTDIR}/${ARTIFACT_DIR}
@@ -69,7 +69,7 @@ export ASSUME_ALWAYS_YES="yes"
 pkg -c ${DESTDIR} install -y `cat poudriere/host_packages.txt | tr '\n' ' '`
 umount "${DESTDIR}/${ARTIFACT_DIR}"
 rm ${DESTDIR}/etc/pkg/frhyp.conf
-
+mv ${DESTDIR}/tmp/FreeBSD.conf ${DESTDIR}/etc/pkg/FreeBSD.conf
 ### Set timezone
 tzsetup -C ${DESTDIR} ${BUILDER_TZ} 
 

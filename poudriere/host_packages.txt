@@ -1,4 +1,5 @@
 devel/git-lite
+devel/py-tabulate
 editors/nano
 editors/vim-lite
 lang/python

@@ -6,7 +6,7 @@ set -e
 export ARTIFACT_DIR="/tmp/build"
 export WORK_DIR="/tmp/work"
 export VERSION="11.1-RELEASE"
-export FRHYP_VERS="0.0.1t"
+export FRHYP_VERS="0.0.1v"
 export DIST_DROP_DIR="${ARTIFACT_DIR}/freebsd"
 export PACKAGE_DROP_DIR="${ARTIFACT_DIR}/packages"
 export IMAGE_DROP_DIR="${ARTIFACT_DIR}/image"

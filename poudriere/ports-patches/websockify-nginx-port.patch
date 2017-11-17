@@ -1,0 +1,13 @@
+2c2
+< # $FreeBSD$
+---
+> # $FreeBSD: head/www/nginx/Makefile 453414 2017-11-03 17:04:43Z joneum $
+752a753,758
+> NGINX_WEBSOCKIFY_VERSION= 33ca4a0
+> GH_ACCOUNT+=	tg123:websockify
+> GH_PROJECT+=	websockify-nginx-module:websockify
+> GH_TAGNAME+=	${NGINX_WEBSOCKIFY_VERSION}:websockify
+> CONFIGURE_ARGS+=--add-module=${WRKSRC_websockify}
+> 
+1359d1364
+< 

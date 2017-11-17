@@ -7,7 +7,7 @@
 name="bapi" 
 rcvar=${name}_enable
 command="/usr/local/bin/gunicorn"
-command_args="--bind 0.0.0.0:8001 bapi.bapi:app >> /var/log/bapi-info.log 2>> /var/log/bapi-err.log &"
+command_args="--bind 127.0.0.1:8001 bapi.bapi:app >> /var/log/bapi-info.log 2>> /var/log/bapi-err.log &"
 pidfile="/var/run/${name}.pid"
 
 load_rc_config $name

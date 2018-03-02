@@ -7,15 +7,15 @@ IMG_SIZE="8100M"
 NCPU=`sysctl -n hw.ncpu`
 SWAP_SIZE="2G"
 ZPOOL_NAME="tank"
-ZFS_ROOT_DS="${ZPOOL_NAME}/root/${FRHYP_VERS}"
+ZFS_ROOT_DS="${ZPOOL_NAME}/root/${FREEHYVE_VERS}"
 ZFS_PERSIST_DS="${ZPOOL_NAME}/persist"
 DESTDIR="/tmp/install/"
 
 mkdir -p ${DESTDIR}
 
 #### Create the image and back it by an md
-truncate -s ${IMG_SIZE} ${IMAGE_DROP_DIR}/frhyp_${FRHYP_VERS}.img
-MD_DEV=`mdconfig -f ${IMAGE_DROP_DIR}/frhyp_${FRHYP_VERS}.img | tr -d "\n"`
+truncate -s ${IMG_SIZE} ${IMAGE_DROP_DIR}/freehyve_${FREEHYVE_VERS}.img
+MD_DEV=`mdconfig -f ${IMAGE_DROP_DIR}/freehyve_${FREEHYVE_VERS}.img | tr -d "\n"`
 
 #### Partition the disk image
 gpart create -s gpt /dev/${MD_DEV}
@@ -56,11 +56,11 @@ gpart bootcode -b ${DESTDIR}/boot/pmbr -p ${DESTDIR}/boot/gptzfsboot -i 1 /dev/$
 ### Packages
 cp /etc/resolv.conf ${DESTDIR}/etc/resolv.conf
 mkdir -p ${DESTDIR}/etc/pkg/
-echo "frhyp: {
+echo "freehyve: {
         url: \"file:///tmp/build/packages/packages/packages/base-local\",
         mirror_type: \"none\",
         enabled: yes
-}" > ${DESTDIR}/etc/pkg/frhyp.conf
+}" > ${DESTDIR}/etc/pkg/freehyve.conf
 mv ${DESTDIR}/etc/pkg/FreeBSD.conf ${DESTDIR}/tmp/FreeBSD.conf
 
 mkdir -p "${DESTDIR}/${ARTIFACT_DIR}"
@@ -68,7 +68,7 @@ mount -t nullfs ${ARTIFACT_DIR} ${DESTDIR}/${ARTIFACT_DIR}
 export ASSUME_ALWAYS_YES="yes"
 pkg -c ${DESTDIR} install -y `cat poudriere/host_packages.txt | tr '\n' ' '`
 umount "${DESTDIR}/${ARTIFACT_DIR}"
-rm ${DESTDIR}/etc/pkg/frhyp.conf
+rm ${DESTDIR}/etc/pkg/freehyve.conf
 mv ${DESTDIR}/tmp/FreeBSD.conf ${DESTDIR}/etc/pkg/FreeBSD.conf
 ### Set timezone
 tzsetup -C ${DESTDIR} ${BUILDER_TZ} 
@@ -89,14 +89,14 @@ for PACKAGE in $PIP_PACKAGES; do
 done
 
 #### Create a very small receipt
-echo "${FRHYP_VERS}" > ${DESTDIR}/receipt
-echo "frhyp rev: #${FRHYP_VERS}" >> ${DESTDIR}/etc/motd
+echo "${FREEHYVE_VERS}" > ${DESTDIR}/receipt
+echo "freehyve rev: #${FREEHYVE_VERS}" >> ${DESTDIR}/etc/motd
 
 ### Send the update zfs pool to a string
 zfs umount -f ${ZFS_ROOT_DS}
 zfs set mountpoint=none ${ZFS_ROOT_DS}
 zfs snapshot -r ${ZFS_ROOT_DS}@update
-zfs send -R ${ZFS_ROOT_DS}@update | gzip > ${IMAGE_DROP_DIR}/frhyp_${FRHYP_VERS}_update.zfs.gz
+zfs send -R ${ZFS_ROOT_DS}@update | gzip > ${IMAGE_DROP_DIR}/freehyve_${FREEHYVE_VERS}_update.zfs.gz
 zfs set mountpoint=/ ${ZFS_ROOT_DS}
 
 ### Export the zpool
@@ -108,5 +108,5 @@ sync
 
 ### Delete the memory disk
 mdconfig -d -u `echo ${MD_DEV} | cut -d d -f2 | tr -d "\n"`
-gzip ${IMAGE_DROP_DIR}/frhyp_${FRHYP_VERS}.img
+gzip ${IMAGE_DROP_DIR}/freehyve_${FREEHYVE_VERS}.img
 

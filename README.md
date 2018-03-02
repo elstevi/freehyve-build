@@ -1,4 +1,4 @@
-# frhyp-build
+# freehyve-build
 
 ## Description
 
@@ -13,7 +13,7 @@ Builds a BSD Hypervisor operating system image, combining the following:
 
 ## Project anatomy
 
-### frhyp-build.sh 
+### freehyve-build.sh 
 Sets the version number, kicks off all other build steps
 
 #### build\_steps/10-fetchdists.sh
@@ -23,7 +23,7 @@ Fetches upstream distribution files from the specified release.
 Locally builds binary packages that the hypervisor requires using poudriere.
 
 #### build\_steps/30-image.sh
-Builds a gpt/zfs image that can be plastered on to any media larger that 8GB. Also includes a zfs update image that will utilize frhyp-update to download a new boot environment.
+Builds a gpt/zfs image that can be plastered on to any media larger that 8GB. Also includes a zfs update image that will utilize freehyve-update to download a new boot environment.
 
 ### overlay/
 These files are overlayed over the root of the new filesystem.
@@ -33,12 +33,12 @@ Contains a package list for the hypervisor, various poudriere configurations. Th
 
 ## Building
 
-Simply set the version in frhyp-build.sh, and then execute the shell script on any FreeBSD 11+ system.
+Simply set the version in freehyve-build.sh, and then execute the shell script on any FreeBSD 11+ system.
 
 ### Building individual components
 If you have done a full build once (and not cleaned up), you can build individual components by executing
 
-```sh frhyp-build.sh exec```
+```sh freehyve-build.sh exec```
 
 This puts you into the environment necessary to run a build. Just run
 

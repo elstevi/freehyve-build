@@ -3,9 +3,18 @@
 set -x
 set -e
 
-RELEASE="11.1-RELEASE"
-DISTS="kernel.txz base.txz MANIFEST"
+BRANCH="master"
+NCPU=`sysctl -n hw.ncpu`
+REPO="https://github.com/freebsd/freebsd.git"
+SRCDIR="${WORK_DIR}/src"
 
-for DIST in $DISTS; do
-	fetch -m -o ${DIST_DROP_DIR} "http://ftp.freebsd.org/pub/FreeBSD/releases/amd64/${RELEASE}/${DIST}"
-done
+mkdir -p ${SRCDIR}
+
+git clone -b ${BRANCH} ${REPO} ${SRCDIR}
+
+cd ${SRCDIR}; make -j ${NCPU} buildworld
+cd ${SRCDIR}; make -j ${NCPU} buildkernel
+cd ${SRCDIR}/release; make -j ${NCPU} packagesystem
+
+cp -R ${SRCDIR}/release/*.txz ${DIST_DROP_DIR}
+cp -R ${SRCDIR}/release/MANIFEST ${DIST_DROP_DIR}

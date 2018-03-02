@@ -1,0 +1,26 @@
+From aadf9f673e189977306e020d4b75e44703f03ec8 Mon Sep 17 00:00:00 2001
+From: Steven Douglas <steven@douglas-enterprises.com>
+Date: Fri, 17 Nov 2017 19:13:06 -0800
+Subject: Allow port 0 into bhyve, prompting the socket to decide on a port
+ automatically
+
+---
+ usr.sbin/bhyve/rfb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/usr.sbin/bhyve/rfb.c b/usr.sbin/bhyve/rfb.c
+index 0f492e1b9d4..7a5eac8b81a 100644
+--- a/usr.sbin/bhyve/rfb.c
++++ b/usr.sbin/bhyve/rfb.c
+@@ -1003,7 +1003,7 @@ rfb_init(char *hostname, int port, int wait, char *password)
+ 
+ 	sin.sin_len = sizeof(sin);
+ 	sin.sin_family = AF_INET;
+-	sin.sin_port = port ? htons(port) : htons(5900);
++	sin.sin_port = htons(port);
+ 	if (hostname && strlen(hostname) > 0)
+ 		inet_pton(AF_INET, hostname, &(sin.sin_addr));
+ 	else
+-- 
+2.14.1
+

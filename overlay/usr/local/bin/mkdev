@@ -1,8 +1,11 @@
 #!/bin/sh
 
-PROJECTS="bapi bapiclient bweb bcli libbhyve freehyve-build"
+PROJECTS="bapi bapiclient bweb bcli libbhyve"
 mkdir -p /root/src
 for PROJECT in $PROJECTS; do
 	git clone git@github.com:/elstevi/${PROJECT} /root/src/${PROJECT}
 	mount -t nullfs /root/src/${PROJECT}/${PROJECT} /usr/local/lib/python2.7/site-packages/${PROJECT}
 done
+ps auxww | grep gunicorn | awk '{print $2}' | xargs -I % kill %
+sysrc bweb_enable="NO"
+sysrc bapi_enable="NO"

@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# PROVIDE: beep
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+# Add these lines to /etc/rc.conf.local or /etc/rc.conf
+# to enable this service:
+#
+# beep_enable (bool):       Set to NO by default.
+#                           Set it to YES to enable beep.
+#
+
+. /etc/rc.subr
+
+name=beep
+required_modules="speaker"
+start_cmd="startup_beep"
+stop_cmd="shutdown_beep"
+rcvar=beep_enable
+
+load_rc_config $name
+
+: ${beep_enable:="NO"}
+: ${beep_volume:="80"}
+
+startup_beep()
+{
+   mixer pcm ${beep_volume} > /dev/null
+   echo 'da' > /dev/speaker
+}
+
+shutdown_beep()
+{
+   mixer pcm ${beep_volume} > /dev/null
+   echo 'ad' > /dev/speaker
+}
+
+run_rc_command "$1"
+

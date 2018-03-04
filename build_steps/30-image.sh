@@ -36,6 +36,7 @@ zfs create -p -o mountpoint=/home ${ZFS_PERSIST_DS}/home
 zfs create -p -o reservation=1G ${ZFS_PERSIST_DS}/ballast
 zfs create -p -o mountpoint=/var/log ${ZFS_PERSIST_DS}/log
 zfs create -p -o mountpoint=/etc/ssh ${ZFS_PERSIST_DS}/ssh
+zfs create -p -o mountpoint=/root ${ZFS_PERSIST_DS}/root
 
 ### Set bootfs 
 zpool set bootfs=${ZFS_ROOT_DS} ${ZPOOL_NAME}
@@ -80,8 +81,6 @@ echo 'a' | pw -R ${DESTDIR} mod user root -h 0
 cp -R overlay/* ${DESTDIR}/
 
 git clone https://github.com/novnc/noVNC.git ${DESTDIR}/usr/local/www/noVNC
-
-cp -R /root/.ssh ${DESTDIR}/root
 
 PIP_PACKAGES="libbhyve.git bapi.git bapiclient.git bweb.git bcli.git"
 for PACKAGE in $PIP_PACKAGES; do

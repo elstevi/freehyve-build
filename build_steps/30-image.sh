@@ -36,7 +36,6 @@ zfs create -p -o mountpoint=/home ${ZFS_PERSIST_DS}/home
 zfs create -p -o reservation=1G ${ZFS_PERSIST_DS}/ballast
 zfs create -p -o mountpoint=/var/log ${ZFS_PERSIST_DS}/log
 zfs create -p -o mountpoint=/etc/ssh ${ZFS_PERSIST_DS}/ssh
-zfs create -p -o mountpoint=/root ${ZFS_PERSIST_DS}/root
 
 ### Set bootfs 
 zpool set bootfs=${ZFS_ROOT_DS} ${ZPOOL_NAME}
@@ -49,6 +48,8 @@ zfs set org.freebsd:swap=on ${ZPOOL_NAME}/swap
 tar -C ${DESTDIR} --unlink -xpJf ${DIST_DROP_DIR}/base.txz
 tar -C ${DESTDIR} --unlink -xpJf ${DIST_DROP_DIR}/kernel.txz
 
+zfs create -p -o mountpoint=/root ${ZFS_PERSIST_DS}/root
+find ${DESTDIR}/usr/share/skel/dot.* | rev | cut -d \. -f1 | rev | xargs -I % cp ${DESTDIR}/usr/share/skel/dot.% ${DESTDIR}/root/%
 
 sysctl kern.geom.debugflags=0x10
 

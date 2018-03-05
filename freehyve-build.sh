@@ -6,7 +6,7 @@ set -e
 export ARTIFACT_DIR="/tmp/build"
 export WORK_DIR="/tmp/work"
 export VERSION="12.0-CURRENT"
-export FREEHYVE_VERS="0.0.1zb"
+export FREEHYVE_VERS="0.0.1zc"
 export DIST_DROP_DIR="${ARTIFACT_DIR}/freebsd"
 export PACKAGE_DROP_DIR="${ARTIFACT_DIR}/packages"
 export IMAGE_DROP_DIR="${ARTIFACT_DIR}/image"

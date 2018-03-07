@@ -36,6 +36,7 @@ zfs create -p -o mountpoint=/home ${ZFS_PERSIST_DS}/home
 zfs create -p -o reservation=1G ${ZFS_PERSIST_DS}/ballast
 zfs create -p -o mountpoint=/var/log ${ZFS_PERSIST_DS}/log
 zfs create -p -o mountpoint=/etc/ssh ${ZFS_PERSIST_DS}/ssh
+zfs create -p -o mountpoint=/etc/ssh ${ZFS_PERSIST_DS}/ssh
 
 ### Set bootfs 
 zpool set bootfs=${ZFS_ROOT_DS} ${ZPOOL_NAME}

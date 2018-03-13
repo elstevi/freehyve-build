@@ -17,15 +17,6 @@
   "memory": "1024",
   "fbuf_ip": "127.0.0.1",
   "iso": "/root/iso/FreeBSD-11.1-RELEASE-amd64-bootonly.iso",
-  "disk": [
-    {
-      "backing": "zvol",
-      "path": "tank/persist/vms/example/disk",
-      "create_disk": "yes",
-      "driver": "ahci-hd",
-      "size": "10G"
-    }
-  ],
   "name": "example"
 }
 

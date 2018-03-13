@@ -1,6 +1,7 @@
 devel/git-lite
 devel/py-tabulate
 editors/nano
+editors/vim-console
 lang/python
 ports-mgmt/pkg
 sysutils/beadm

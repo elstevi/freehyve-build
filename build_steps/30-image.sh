@@ -31,11 +31,9 @@ zfs set compression=lz4 ${ZPOOL_NAME}
 zfs set mountpoint=/ ${ZFS_ROOT_DS}
 zfs create -p -o mountpoint=/persist ${ZFS_PERSIST_DS}
 zfs create -p ${ZFS_PERSIST_DS}/vms
-zfs create -p -V 10G -o refreservation=none ${ZFS_PERSIST_DS}/vms/example/disk
 zfs create -p -o mountpoint=/home ${ZFS_PERSIST_DS}/home
 zfs create -p -o reservation=1G ${ZFS_PERSIST_DS}/ballast
 zfs create -p -o mountpoint=/var/log ${ZFS_PERSIST_DS}/log
-zfs create -p -o mountpoint=/etc/ssh ${ZFS_PERSIST_DS}/ssh
 zfs create -p -o mountpoint=/etc/ssh ${ZFS_PERSIST_DS}/ssh
 
 ### Set bootfs 

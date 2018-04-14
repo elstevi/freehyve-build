@@ -3,8 +3,9 @@
 set -x
 set -e
 
-export ARTIFACT_DIR="/tmp/build"
-export WORK_DIR="/tmp/work"
+export WORKSPACE=$WORKSPACE
+export ARTIFACT_DIR="${WORKSPACE}/build"
+export WORK_DIR="${WORKSPACE}/work"
 export VERSION="12.0-CURRENT"
 export FREEHYVE_VERS="0.0.1zi"
 export DIST_DROP_DIR="${ARTIFACT_DIR}/freebsd"

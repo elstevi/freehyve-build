@@ -5,7 +5,7 @@ set -e
 
 BRANCH="master"
 NCPU=`sysctl -n hw.ncpu`
-REPO="https://github.com/elstevi/freebsd.git"
+REPO="/root/freebsd"
 SRCDIR="${WORK_DIR}/src"
 
 mkdir -p ${SRCDIR}

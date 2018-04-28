@@ -7,7 +7,6 @@ BRANCH="master"
 NCPU=`sysctl -n hw.ncpu`
 REPO="/root/freebsd"
 SRCDIR="${WORK_DIR}/src"
-/usr/obj/tmp/build/work/src/amd64.amd64/release/base.txz
 mkdir -p ${SRCDIR}
 
 git clone -b ${BRANCH} ${REPO} ${SRCDIR}

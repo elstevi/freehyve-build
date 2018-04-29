@@ -23,7 +23,8 @@ ${POUDRIERE} ports -c -p ${PORTS_NAME} > /dev/null
 # Patch nginx for websockify
 patch -i poudriere/ports-patches/websockify-nginx-port.patch /usr/local/poudriere/ports/local/www/nginx/Makefile
 cat poudriere/ports-patches/distinfo-nginx >> /usr/local/poudriere/ports/local/www/nginx/distinfo
-# Create ports distfile
+
+#Create ports distfile
 mkdir -p /usr/ports/distfiles
 
 # Generate packages

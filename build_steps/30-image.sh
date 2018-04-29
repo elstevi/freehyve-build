@@ -58,7 +58,7 @@ gpart bootcode -b ${DESTDIR}/boot/pmbr -p ${DESTDIR}/boot/gptzfsboot -i 1 /dev/$
 cp /etc/resolv.conf ${DESTDIR}/etc/resolv.conf
 mkdir -p ${DESTDIR}/etc/pkg/
 echo "freehyve: {
-        url: \"file:///tmp/build/packages/packages/packages/base-local\",
+        url: \"file://${ARTIFACT_DIR}/packages/packages/packages/base-local\",
         mirror_type: \"none\",
         enabled: yes
 }" > ${DESTDIR}/etc/pkg/freehyve.conf

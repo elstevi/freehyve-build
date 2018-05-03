@@ -1,9 +1,7 @@
-752a753,758
+71a72,77
 > NGINX_WEBSOCKIFY_VERSION= 33ca4a0
 > GH_ACCOUNT+=	tg123:websockify
 > GH_PROJECT+=	websockify-nginx-module:websockify
 > GH_TAGNAME+=	${NGINX_WEBSOCKIFY_VERSION}:websockify
 > CONFIGURE_ARGS+=--add-module=${WRKSRC_websockify}
-> 
-1359d1364
-< 
+>

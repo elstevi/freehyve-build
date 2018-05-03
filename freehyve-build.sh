@@ -4,7 +4,7 @@ set -x
 set -e
 
 export WORKSPACE=$WORKSPACE
-export ARTIFACT_DIR="${WORKSPACE}/build"
+export ARTIFACT_DIR="/root/build"
 export WORK_DIR="${WORKSPACE}/work"
 export VERSION="12.0-CURRENT"
 export FREEHYVE_VERS="0.0.1zi"

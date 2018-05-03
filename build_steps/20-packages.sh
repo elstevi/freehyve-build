@@ -21,7 +21,7 @@ ${POUDRIERE} jail -c -j ${JAIL_NAME} -m tar=${DIST_DROP_DIR}/base.txz -v ${VERSI
 ${POUDRIERE} ports -c -p ${PORTS_NAME} > /dev/null
 
 # Patch nginx for websockify
-patch -i poudriere/ports-patches/websockify-nginx-port.patch /usr/local/poudriere/ports/local/www/nginx/Makefile
+patch -i poudriere/ports-patches/websockify-nginx-port.patch /usr/local/poudriere/ports/local/www/nginx/Makefile.extmod
 cat poudriere/ports-patches/distinfo-nginx >> /usr/local/poudriere/ports/local/www/nginx/distinfo
 
 #Create ports distfile

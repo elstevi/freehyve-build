@@ -10,7 +10,7 @@ export VERSION="12.0-CURRENT"
 if [ -z ${BUILD_NUMBER+x} ]; then
 export FREEHYVE_VERS="0.0.1zi"
 else
-	export FREEHYVE_VERSION="0.0.1-${BUILD_NUMBER}"
+	export FREEHYVE_VERS="0.0.1-${BUILD_NUMBER}"
 fi
 
 export DIST_DROP_DIR="${ARTIFACT_DIR}/freebsd"

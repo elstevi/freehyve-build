@@ -4,7 +4,7 @@ set -x
 set -e
 
 export WORKSPACE=$WORKSPACE
-export ARTIFACT_DIR="/root/build"
+export ARTIFACT_DIR="${WORKSPACE}/artifacts"
 export WORK_DIR="${WORKSPACE}/work"
 export VERSION="12.0-CURRENT"
 if [ -z ${BUILD_NUMBER+x} ]; then

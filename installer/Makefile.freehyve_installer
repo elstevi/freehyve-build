@@ -1,0 +1,17 @@
+BASE=${DIST_DROP_DIR}
+IMAGE=freehyve_installer_${FREEHYVE_VERS}.img
+SYSTEM_IMAGE=freehyve_${FREEHYVE_VERS}.img.xz
+SYSTEM_IMAGE_PATH=${ARTIFACT_DIR}/image/${SYSTEM_IMAGE}
+MFSROOT_MAXSIZE=650m
+
+all: clean install_artifact image remove_artifact
+
+install_artifact:
+	echo "Copying freehyve image..."
+	${_v}${CP} ${SYSTEM_IMAGE_PATH} ./customfiles/
+
+remove_artifact:
+	echo "Removing freehyve image..."
+	${_v}${RM} ./customfiles/${SYSTEM_IMAGE} 
+
+include Makefile

@@ -107,5 +107,5 @@ sync
 
 ### Delete the memory disk
 mdconfig -d -u `echo ${MD_DEV} | cut -d d -f2 | tr -d "\n"`
-gzip ${IMAGE_DROP_DIR}/freehyve_${FREEHYVE_VERS}.img
+xz -9 --threads=${NCPU} ${IMAGE_DROP_DIR}/freehyve_${FREEHYVE_VERS}.img
 

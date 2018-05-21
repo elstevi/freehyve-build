@@ -1,0 +1,54 @@
+#!/bin/sh
+
+ARTIFACT=$1
+INSTALL_DISK=$2
+
+DIALOG="dialog --backtitle freehyve-installer"
+
+abort () {
+	echo 'Cancelled by user'
+	exit $?
+
+}
+
+was_dialog_good () {
+	if [ "$1" != "0" ]; then
+		abort
+	fi
+}
+
+
+if [ -z ${ARTIFACT} ]; then
+	# Try and discover an image
+	DISCOVERED_IMAGE=`find / -maxdepth 1 -type f -name '*.img'`
+	if [ -z ${DISCOVERED_IMAGE} ]; then
+		echo "Install image not found automatically, and not passed into script"
+		exit 1
+	else
+		ARTIFACT="${DISCOVERED_IMAGE}"
+	fi
+fi
+
+# Install disk
+if [ -z ${INSTALL_DISK} ]; then
+	DISKS=`sysctl -n kern.disks | tr ' ' '\n' | grep -v 'cd[0-9]'`
+	I=1
+	for DISK in $DISKS; do
+		DISK_DETAIL=`dmesg | grep $DISK | head -n 2 | tail -n 1| cut -d \: -f2 | cut -d \< -f2 | cut -d \> -f1 | tr ' ' '_'`
+		MENU_CHOICES="${MENU_CHOICES} ${DISK} \"${DISK_DETAIL}\""
+		I=`echo ${I} + 1 | bc`
+	done
+	$DIALOG --menu 'Which disk would you like to install freehyve to?' 30 60 20 $MENU_CHOICES 2> /tmp/disk_choice
+	was_dialog_good $?
+	INSTALL_DISK=`cat /tmp/disk_choice`
+fi
+
+# Confirm
+$DIALOG --yesno "Are you sure you want to install freehyve to ${INSTALL_DISK}? It will ERASE all data on the disk!" 8 40
+was_dialog_good $?
+
+# Do the install
+( pv -n ${ARTIFACT} | dd bs=4M of=${INSTALL_DISK}) 2>&1 | $DIALOG --title "freehyve installer" --gauge "Installing freehyve to ${INSTALL_DISK}..." 10 30 0
+
+mkdir -p /tmp/install
+zpool import -o altroot=/tmp/install tank

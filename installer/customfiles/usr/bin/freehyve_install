@@ -20,7 +20,7 @@ was_dialog_good () {
 
 if [ -z ${ARTIFACT} ]; then
 	# Try and discover an image
-	DISCOVERED_IMAGE=`find / -maxdepth 1 -type f -name '*.img'`
+	DISCOVERED_IMAGE=`find / -maxdepth 1 -type f -name '*.img.xz'`
 	if [ -z ${DISCOVERED_IMAGE} ]; then
 		echo "Install image not found automatically, and not passed into script"
 		exit 1
@@ -48,7 +48,7 @@ $DIALOG --yesno "Are you sure you want to install freehyve to ${INSTALL_DISK}? I
 was_dialog_good $?
 
 # Do the install
-( pv -n ${ARTIFACT} | dd bs=4M of=${INSTALL_DISK}) 2>&1 | $DIALOG --title "freehyve installer" --gauge "Installing freehyve to ${INSTALL_DISK}..." 10 30 0
+( pv -n ${ARTIFACT} | unxz | dd bs=4M of=${INSTALL_DISK}) 2>&1 | $DIALOG --title "freehyve installer" --gauge "Installing freehyve to ${INSTALL_DISK}..." 10 30 0
 
 mkdir -p /tmp/install
 zpool import -o altroot=/tmp/install tank

@@ -21,6 +21,6 @@ pkg:
 	cp /etc/resolv.conf ${_DESTDIR}/etc/resolv.conf
 	echo "Installing packages..."
 	pkg -c ${_DESTDIR} install -y pkg ${PACKAGES_INSTALL}
-	rm ${DESTDIR}/etc/resolv.conf
+	rm ${_DESTDIR}/etc/resolv.conf
 
 include Makefile

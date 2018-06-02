@@ -48,7 +48,5 @@ $DIALOG --yesno "Are you sure you want to install freehyve to ${INSTALL_DISK}? I
 was_dialog_good $?
 
 # Do the install
-( pv -n ${ARTIFACT} | unxz | dd bs=4M of=${INSTALL_DISK}) 2>&1 | $DIALOG --title "freehyve installer" --gauge "Installing freehyve to ${INSTALL_DISK}..." 10 30 0
+cd /tmp; ( pv -n ${ARTIFACT} | unxz | dd bs=4M of=${INSTALL_DISK}) 2>&1 | $DIALOG --title "freehyve installer" --gauge "Installing freehyve to ${INSTALL_DISK}..." 10 30 0
 
-mkdir -p /tmp/install
-zpool import -o altroot=/tmp/install tank

@@ -95,7 +95,7 @@ echo "freehyve rev: #${FREEHYVE_VERS}" >> ${DESTDIR}/etc/motd
 zfs umount -f ${ZFS_ROOT_DS}
 zfs set mountpoint=none ${ZFS_ROOT_DS}
 zfs snapshot -r ${ZFS_ROOT_DS}@update
-zfs send -R ${ZFS_ROOT_DS}@update | gzip > ${IMAGE_DROP_DIR}/freehyve_${FREEHYVE_VERS}_update.zfs.gz
+zfs send -R ${ZFS_ROOT_DS}@update | xz -9 --threads ${NCPU} > ${IMAGE_DROP_DIR}/freehyve_${FREEHYVE_VERS}_update.zfs.xz
 zfs set mountpoint=/ ${ZFS_ROOT_DS}
 
 ### Export the zpool

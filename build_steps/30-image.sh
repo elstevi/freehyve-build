@@ -47,6 +47,9 @@ zfs set org.freebsd:swap=on ${ZPOOL_NAME}/swap
 tar -C ${DESTDIR} --unlink -xpJf ${DIST_DROP_DIR}/base.txz
 tar -C ${DESTDIR} --unlink -xpJf ${DIST_DROP_DIR}/kernel.txz
 
+# mount devfs
+mount -t devfs devfs ${DESTDIR}/dev
+
 zfs create -p -o mountpoint=/root ${ZFS_PERSIST_DS}/root
 find ${DESTDIR}/usr/share/skel/dot.* | rev | cut -d \. -f1 | rev | xargs -I % cp ${DESTDIR}/usr/share/skel/dot.% ${DESTDIR}/root/%
 
@@ -71,6 +74,7 @@ pkg -c ${DESTDIR} install -y `cat poudriere/host_packages.txt | tr '\n' ' '`
 umount "${DESTDIR}/${ARTIFACT_DIR}"
 rm ${DESTDIR}/etc/pkg/freehyve.conf
 mv ${DESTDIR}/tmp/FreeBSD.conf ${DESTDIR}/etc/pkg/FreeBSD.conf
+
 ### Set timezone
 tzsetup -C ${DESTDIR} ${BUILDER_TZ} 
 
@@ -83,7 +87,6 @@ cp -R overlay/* ${DESTDIR}/
 git clone https://github.com/novnc/noVNC.git ${DESTDIR}/usr/local/www/noVNC
 
 # Upgrade pip
-chroot ${DESTDIR} /usr/local/bin/pip install -U pip
 PIP_PACKAGES="libbhyve.git bapi.git bapiclient.git bweb.git bcli.git"
 for PACKAGE in $PIP_PACKAGES; do
 	chroot ${DESTDIR} /usr/local/bin/pip install git+https://github.com/elstevi/${PACKAGE}@master
@@ -92,6 +95,8 @@ done
 #### Create a very small receipt
 echo "${FREEHYVE_VERS}" > ${DESTDIR}/receipt
 echo "freehyve rev: #${FREEHYVE_VERS}" >> ${DESTDIR}/etc/motd
+
+umount ${DESTDIR}/dev
 
 ### Send the update zfs pool to a string
 zfs umount -f ${ZFS_ROOT_DS}

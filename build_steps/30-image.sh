@@ -87,6 +87,7 @@ cp -R overlay/* ${DESTDIR}/
 git clone https://github.com/novnc/noVNC.git ${DESTDIR}/usr/local/www/noVNC
 
 # Upgrade pip
+env
 PIP_PACKAGES="libbhyve.git bapi.git bapiclient.git bweb.git bcli.git"
 for PACKAGE in $PIP_PACKAGES; do
 	chroot ${DESTDIR} /usr/local/bin/pip install git+https://github.com/elstevi/${PACKAGE}@master

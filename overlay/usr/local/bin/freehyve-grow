@@ -1,6 +1,6 @@
 #!/bin/sh
-POOL="tank"
-DISKS=`zpool status | grep ONLINE | grep -v 'state' | grep -v tank | awk '{print $1}'`
+POOL="freehyveboot"
+DISKS=`zpool status ${POOL} | grep ONLINE | grep -v 'state' | grep -v ${POOL} | awk '{print $1}'`
 for DISK in $DISKS; do
 	PARTITION=`echo $DISK | cut -d p -f2`
 	if [ "$PARTITION" != "" ]; then

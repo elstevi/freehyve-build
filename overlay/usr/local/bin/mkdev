@@ -3,7 +3,7 @@
 PROJECTS="bapi bapiclient bweb bcli libbhyve"
 mkdir -p /root/src
 for PROJECT in $PROJECTS; do
-	git clone git@github.com:/elstevi/${PROJECT} /root/src/${PROJECT}
+	git clone https://github.com/elstevi/${PROJECT} /root/src/${PROJECT}
 	mount -t nullfs /root/src/${PROJECT}/${PROJECT} /usr/local/lib/python2.7/site-packages/${PROJECT}
 done
 ps auxww | grep gunicorn | awk '{print $2}' | xargs -I % kill %

@@ -47,6 +47,11 @@ fi
 $DIALOG --yesno "Are you sure you want to install freehyve to ${INSTALL_DISK}? It will ERASE all data on the disk!" 8 40
 was_dialog_good $?
 
+# Clear the disk
+gpart destroy -F /dev/${INSTALL_DISK}
+zpool create -f test /dev/${INSTALL_DISK}
+zpool destroy -f test
+
 # Do the install
 cd /tmp; ( /usr/local/bin/pv -n ${ARTIFACT} | /usr/bin/unxz | /bin/dd bs=4M of=/dev/${INSTALL_DISK}) 2>&1 | $DIALOG --title "freehyve installer" --gauge "Installing freehyve to ${INSTALL_DISK}..." 10 30 0
-
+was_dialog_good $?
